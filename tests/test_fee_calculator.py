@@ -30,6 +30,17 @@ def test_negative_overdue_days():
         calculate_fee("book", -2)
 
 
+def test_non_integer_overdue_days():
+    with pytest.raises(ValueError, match="integer"):
+        calculate_fee("book", 2.5)
+
+
+def test_non_string_item_type():
+    with pytest.raises(ValueError, match="Unsupported"):
+        calculate_fee(None, 3)
+
+
+
 def test_invalid_item_type():
     with pytest.raises(ValueError, match="Unsupported"):
         calculate_fee("newspaper", 3)
